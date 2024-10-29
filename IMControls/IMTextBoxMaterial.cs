@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
-namespace CustomControls.IMControls;
+namespace IMControls.CustomControls;
 
 public class IMTextBoxMaterial : Control
 {
@@ -24,54 +24,55 @@ public class IMTextBoxMaterial : Control
     private Color DisabledUnfocusedColor;
     private Color textBackColor;
     private Color borderColor = Color.MediumSlateBlue;
-
+    
     public IMTextBoxMaterial()
     {
         System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer
         {
             Interval = 1
         };
-        this.Text = string.Empty;
-        this.AnimationTimer = timer1;
-        this.Focus = false;
-        this.SizeAnimation = 0f;
-        this.focusColor = ColorTranslator.FromHtml("#cc00cc");
-        this.EnabledUnFocusedColor = Color.Gray; //ColorTranslator.FromHtml("#dbdbdb");
-        this.DisabledUnfocusedColor = ColorTranslator.FromHtml("#e9ecee");
-        this.textBackColor = Color.White;
+        Text = string.Empty;
+        AnimationTimer = timer1;
+        Focus = false;
+        SizeAnimation = 0f;
+        focusColor = ColorTranslator.FromHtml("#cc00cc");
+        EnabledUnFocusedColor = Color.Gray; //ColorTranslator.FromHtml("#dbdbdb");
+        DisabledUnfocusedColor = ColorTranslator.FromHtml("#e9ecee");
+        textBackColor = Color.White;
         base.Width = 250;
-        this.DoubleBuffered = true;
-        this.previousReadOnly = this.ReadOnly;
-        this.AddTextBox();
-        base.Controls.Add(this.textbox);
-        this.textbox.TextChanged += (sender, args) => this.Text = this.textbox.Text;
-        base.TextChanged += (sender, args) => this.textbox.Text = this.Text;
-        this.AnimationTimer.Tick += new EventHandler(this.AnimationTick);
+        base.Height = 28;
+        DoubleBuffered = true;
+        previousReadOnly = ReadOnly;
+        AddTextBox();
+        base.Controls.Add(textbox);
+        textbox.TextChanged += (sender, args) => Text = textbox.Text;
+        base.TextChanged += (sender, args) => textbox.Text = Text;
+        AnimationTimer.Tick += new EventHandler(AnimationTick);
     }
 
     #region "Events"
     protected override void OnGotFocus(EventArgs e)
     {
         base.OnGotFocus(e);
-        this.textbox.Focus();
-        this.textbox.SelectionLength = 0;
+        textbox.Focus();
+        textbox.SelectionLength = 0;
     }
 
     protected void OnKeyDown(object sender, KeyEventArgs e)
     {
         if (e.Control && (e.KeyCode == Keys.A))
         {
-            this.textbox.SelectAll();
+            textbox.SelectAll();
             e.SuppressKeyPress = true;
         }
         if (e.Control && (e.KeyCode == Keys.C))
         {
-            this.textbox.Copy();
+            textbox.Copy();
             e.SuppressKeyPress = true;
         }
         if (e.Control && (e.KeyCode == Keys.X))
         {
-            this.textbox.Cut();
+            textbox.Cut();
             e.SuppressKeyPress = true;
         }
     }
@@ -83,20 +84,20 @@ public class IMTextBoxMaterial : Control
         Graphics graphics = Graphics.FromImage((Image)bitmap);
         graphics.Clear(Color.Transparent);
 
-        this.textbox.BackColor = Color.White;
-        this.EnabledFocusedColor = this.focusColor;
-        this.textbox.TextAlign = this.TextAlignment;
-        this.textbox.UseSystemPasswordChar = this.UseSystemPasswordChar;
+        textbox.BackColor = BackColor;
+        EnabledFocusedColor = focusColor;
+        textbox.TextAlign = TextAlignment;
+        textbox.UseSystemPasswordChar = UseSystemPasswordChar;
 
         graphics.DrawLine(
-            new Pen((Brush) new SolidBrush(this.IsEnabled ? this.borderColor :
-            this.DisabledUnfocusedColor)), 
+            new Pen((Brush) new SolidBrush(IsEnabled ? borderColor :
+            DisabledUnfocusedColor)), 
             new Point(0, base.Height - 2), new Point(base.Width, base.Height - 2));
 
-        if (this.IsEnabled)
+        if (IsEnabled)
         {
-            graphics.FillRectangle((Brush)new SolidBrush(this.EnabledFocusedColor),
-                this.PointAnimation, base.Height - 3f, this.SizeAnimation, 2f);
+            graphics.FillRectangle((Brush)new SolidBrush(EnabledFocusedColor),
+                PointAnimation, base.Height - 3f, SizeAnimation, 2f);
         }
         graphics.SmoothingMode = (SmoothingMode)SmoothingMode.AntiAlias;
         e.Graphics.DrawImage((Image)bitmap.Clone(), 0, 0);
@@ -107,11 +108,11 @@ public class IMTextBoxMaterial : Control
     protected override void OnResize(EventArgs e)
     {
         base.OnResize(e);
-        base.Height = 30;
-        this.PointAnimation = base.Width / 2;
-        this.SizeInc_Dec = base.Width / 18;
-        this.PointInc_Dec = base.Width / 36;
-        this.textbox.Width = base.Width - 1;
+        //base.Height = 30;
+        PointAnimation = base.Width / 2;
+        SizeInc_Dec = base.Width / 18;
+        PointInc_Dec = base.Width / 36;
+        textbox.Width = base.Width - 1;
     }
 
     protected override void OnTextChanged(EventArgs e)
@@ -129,7 +130,7 @@ public class IMTextBoxMaterial : Control
         set
         {
             borderColor = value;
-            this.Invalidate();
+            Invalidate();
         }
     }
 
@@ -137,10 +138,10 @@ public class IMTextBoxMaterial : Control
     public HorizontalAlignment TextAlignment
     {
         get =>
-            this.ALNType;
+            ALNType;
         set
         {
-            this.ALNType = value;
+            ALNType = value;
             base.Invalidate();
         }
     }
@@ -149,11 +150,11 @@ public class IMTextBoxMaterial : Control
     public int MaxLength
     {
         get =>
-            this.maxchars;
+            maxchars;
         set
         {
-            this.maxchars = value;
-            this.textbox.MaxLength = this.MaxLength;
+            maxchars = value;
+            textbox.MaxLength = MaxLength;
             base.Invalidate();
         }
     }
@@ -162,10 +163,10 @@ public class IMTextBoxMaterial : Control
     public Color FocusedColor
     {
         get =>
-            this.focusColor;
+            focusColor;
         set
         {
-            this.focusColor = value;
+            focusColor = value;
             base.Invalidate();
         }
     }
@@ -174,20 +175,20 @@ public class IMTextBoxMaterial : Control
     public bool IsEnabled
     {
         get =>
-            this.Enable;
+            Enable;
         set
         {
-            this.Enable = value;
-            if (this.IsEnabled)
+            Enable = value;
+            if (IsEnabled)
             {
-                this.readOnly = this.previousReadOnly;
-                this.textbox.ReadOnly = this.previousReadOnly;
-                this.textbox.Enabled = true;
+                readOnly = previousReadOnly;
+                textbox.ReadOnly = previousReadOnly;
+                textbox.Enabled = true;
             }
             else
             {
-                this.previousReadOnly = this.ReadOnly;
-                this.ReadOnly = true;
+                previousReadOnly = ReadOnly;
+                ReadOnly = true;
             }
         }
     }
@@ -196,13 +197,13 @@ public class IMTextBoxMaterial : Control
     public bool ReadOnly
     {
         get =>
-            this.readOnly;
+            readOnly;
         set
         {
-            this.readOnly = value;
-            if (this.textbox != null)
+            readOnly = value;
+            if (textbox != null)
             {
-                this.textbox.ReadOnly = value;
+                textbox.ReadOnly = value;
             }
         }
     }
@@ -211,11 +212,11 @@ public class IMTextBoxMaterial : Control
     public bool UseSystemPasswordChar
     {
         get =>
-            this.isPasswordMasked;
+            isPasswordMasked;
         set
         {
-            this.textbox.UseSystemPasswordChar = this.UseSystemPasswordChar;
-            this.isPasswordMasked = value;
+            textbox.UseSystemPasswordChar = UseSystemPasswordChar;
+            isPasswordMasked = value;
             base.Invalidate();
         }
     }
@@ -224,39 +225,49 @@ public class IMTextBoxMaterial : Control
     public Color FontColor
     {
         get =>
-            this.textbox.ForeColor;
-        set { this.textbox.ForeColor = value; Invalidate(); }
+            textbox.ForeColor;
+        set { textbox.ForeColor = value; Invalidate(); }
     }
 
     [Category("IM Controls")]
     public Font TextFont
     {
         get =>
-            this.textbox.Font;
-        set { this.textbox.Font = value; Invalidate(); }
+            textbox.Font;
+        set { textbox.Font = value; Invalidate(); }
+    }
+
+    public override Color BackColor
+    {
+        get => base.BackColor;
+        set 
+        {
+            base.BackColor = value;
+            textbox.BackColor = value;
+            Invalidate();
+        }
     }
     #endregion
 
     #region "Methods"
-    public void AddTextBox()
+    private void AddTextBox()
     {
-        this.textBackColor = this.BackColor;
-        this.textbox.Text = string.Empty;
-        this.textbox.Location = new Point(0, 1);
-        this.textbox.Size = new Size(250, 30);
-        this.textbox.Multiline = false;
-        this.textbox.Font = new Font("Century Gothic", 10f);
-        this.textbox.ScrollBars = ScrollBars.None;
-        this.textbox.BorderStyle = BorderStyle.None;
-        this.textbox.TextAlign = HorizontalAlignment.Left;
-        this.textbox.BackColor = Color.White;
-        this.textbox.UseSystemPasswordChar = this.UseSystemPasswordChar;
-        this.textbox.ForeColor = Color.DimGray;
-        this.textbox.KeyDown += new KeyEventHandler(this.OnKeyDown);
-        this.textbox.GotFocus += (sender, args) => this.Focus = true;
-        this.AnimationTimer.Start();
-        this.textbox.LostFocus += (sender, args) => this.Focus = false;
-        this.AnimationTimer.Start();
+        textbox.Text = Text;
+        textbox.Size = new Size(base.Width - 10, Height);
+        textbox.Location = new Point(Location.X+4, Location.Y+7);
+        textbox.Multiline = false;
+        textbox.Font = new Font("Century Gothic", 10f);
+        textbox.ScrollBars = ScrollBars.None;
+        textbox.BorderStyle = BorderStyle.None;
+        textbox.TextAlign = HorizontalAlignment.Left;
+        textbox.UseSystemPasswordChar = UseSystemPasswordChar;
+        textbox.ForeColor = FontColor;
+        textbox.BackColor = BackColor;
+        textbox.KeyDown += new KeyEventHandler(OnKeyDown);
+        textbox.GotFocus += (sender, args) => Focus = true;
+        AnimationTimer.Start();
+        textbox.LostFocus += (sender, args) => Focus = false;
+        AnimationTimer.Start();
     }
 
     public override string Text
@@ -267,29 +278,29 @@ public class IMTextBoxMaterial : Control
 
     private void AnimationTick(object sender, EventArgs e)
     {
-        if (this.Focus)
+        if (Focus)
         {
-            if (this.SizeAnimation < base.Width)
+            if (SizeAnimation < base.Width)
             {
-                this.SizeAnimation += this.SizeInc_Dec;
+                SizeAnimation += SizeInc_Dec;
                 base.Invalidate();
             }
-            if (this.PointAnimation > 0f)
+            if (PointAnimation > 0f)
             {
-                this.PointAnimation -= this.PointInc_Dec;
+                PointAnimation -= PointInc_Dec;
                 base.Invalidate();
             }
         }
         else
         {
-            if (this.SizeAnimation > 0f)
+            if (SizeAnimation > 0f)
             {
-                this.SizeAnimation -= this.SizeInc_Dec;
+                SizeAnimation -= SizeInc_Dec;
                 base.Invalidate();
             }
-            if (this.PointAnimation < (base.Width / 2))
+            if (PointAnimation < (base.Width / 2))
             {
-                this.PointAnimation += this.PointInc_Dec;
+                PointAnimation += PointInc_Dec;
                 base.Invalidate();
             }
         }

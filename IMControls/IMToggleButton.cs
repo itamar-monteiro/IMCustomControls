@@ -3,7 +3,7 @@ using Microsoft.VisualBasic.Logging;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
-namespace CustomControls.IMControls;
+namespace IMControls.CustomControls;
 
 public class IMToggleButton: Control
 {
@@ -12,13 +12,13 @@ public class IMToggleButton: Control
 
     public IMToggleButton()
     {
-        this.MinimumSize = new Size(80, 20);
-        this.Width = 80;
-        this.Height = 20;
+        MinimumSize = new Size(80, 20);
+        Width = 80;
+        Height = 20;
         isOn = false;
-        this.DoubleBuffered = true;
-        this.Font = new Font("Century Gothic", 10f, FontStyle.Bold);
-        this.Click += onToggleButton_Click;
+        DoubleBuffered = true;
+        Font = new Font("Century Gothic", 10f, FontStyle.Bold);
+        Click += onToggleButton_Click;
     }
 
     #region "Methods"
@@ -34,9 +34,9 @@ public class IMToggleButton: Control
 
     private GraphicsPath CreateRoundedRectanglePath()
     {
-        int arcSize = this.Height - 1;
+        int arcSize = Height - 1;
         Rectangle leftArc = new Rectangle(0, 0, arcSize, arcSize);
-        Rectangle rightArc = new Rectangle(this.Width - arcSize - 2, 0, arcSize, arcSize);
+        Rectangle rightArc = new Rectangle(Width - arcSize - 2, 0, arcSize, arcSize);
 
         GraphicsPath path = new GraphicsPath();
         path.StartFigure();
@@ -49,15 +49,15 @@ public class IMToggleButton: Control
 
     protected override void OnPaint(PaintEventArgs e)
     {
-        int toggleSize = this.Height - 5;
+        int toggleSize = Height - 5;
         e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-        e.Graphics.Clear(this.Parent.BackColor);
+        e.Graphics.Clear(Parent.BackColor);
 
         if (IsOn)
         {
             e.Graphics.FillPath(new SolidBrush(OnColor), CreateRoundedRectanglePath());
             e.Graphics.FillEllipse(new SolidBrush(SwitchColor),
-              new Rectangle(this.Width - this.Height + 1, 2, toggleSize, toggleSize));
+              new Rectangle(Width - Height + 1, 2, toggleSize, toggleSize));
         }
         else
         {
@@ -98,8 +98,8 @@ public class IMToggleButton: Control
         {
             if (value <=5) 
                 radius = 6;
-            else if (value > this.Height) 
-                radius = this.Height;
+            else if (value > Height) 
+                radius = Height;
             else
                 radius = value;
             Invalidate();

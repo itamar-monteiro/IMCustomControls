@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
-namespace CustomControls.IMControls;
+namespace IMControls.CustomControls;
 
 [DefaultEvent("_TextChanged")]
 public partial class IMTextBox : UserControl
@@ -29,7 +29,7 @@ public partial class IMTextBox : UserControl
         set
         {
             borderColor = value;
-            this.Invalidate();
+            Invalidate();
         }
     }
 
@@ -40,7 +40,7 @@ public partial class IMTextBox : UserControl
         set
         {
             borderSize = value;
-            this.Invalidate();
+            Invalidate();
         }
     }
 
@@ -53,7 +53,7 @@ public partial class IMTextBox : UserControl
             if (value >= 0)
             {
                 borderRadius = value;
-                this.Invalidate();
+                Invalidate();
             }
         }
     }
@@ -65,7 +65,7 @@ public partial class IMTextBox : UserControl
         set
         {
             underlinedStyle = value;
-            this.Invalidate();
+            Invalidate();
         }
     }
 
@@ -113,7 +113,7 @@ public partial class IMTextBox : UserControl
         {
             base.Font = value;
             textBox1.Font = value;
-            if (this.DesignMode)
+            if (DesignMode)
                 UpdateControlHeight();
         }
     }
@@ -141,16 +141,16 @@ public partial class IMTextBox : UserControl
 
         if (borderRadius > 1)
         {
-            var rectBorderSmooth = this.ClientRectangle;
+            var rectBorderSmooth = ClientRectangle;
             var rectBorder = Rectangle.Inflate(rectBorderSmooth, -borderSize, -borderSize);
             int smoothSize = borderSize > 0 ? borderSize : 1;
 
             using (GraphicsPath pathBorderSmooth = GetFigurePath(rectBorderSmooth, borderRadius))
             using (GraphicsPath pathBorder = GetFigurePath(rectBorder, borderRadius - borderSize))
-            using (Pen penBorderSmooth = new Pen(this.Parent.BackColor, smoothSize))
+            using (Pen penBorderSmooth = new Pen(Parent.BackColor, smoothSize))
             using (Pen penBorder = new Pen(borderColor, borderSize))
             {
-                this.Region = new Region(pathBorderSmooth);
+                Region = new Region(pathBorderSmooth);
                 if (borderRadius > 15)
                     SetTextBoxRoundedRegion();
 
@@ -162,7 +162,7 @@ public partial class IMTextBox : UserControl
                 {
                     graphics.DrawPath(penBorderSmooth, pathBorderSmooth);
                     graphics.SmoothingMode = SmoothingMode.None;
-                    graphics.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
+                    graphics.DrawLine(penBorder, 0, Height - 1, Width, Height - 1);
                 }
                 else
                 {
@@ -175,16 +175,16 @@ public partial class IMTextBox : UserControl
         {
             using (Pen penBorder = new Pen(borderColor, borderSize))
             {
-                this.Region = new Region(this.ClientRectangle);
+                Region = new Region(ClientRectangle);
                 penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
 
                 if (isFocused)
                     penBorder.Color = borderFocusColor;
 
                 if (underlinedStyle)
-                    graphics.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
+                    graphics.DrawLine(penBorder, 0, Height - 1, Width, Height - 1);
                 else
-                    graphics.DrawRectangle(penBorder, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
+                    graphics.DrawRectangle(penBorder, 0, 0, Width - 0.5F, Height - 0.5F);
             }
         }
     }
@@ -192,7 +192,7 @@ public partial class IMTextBox : UserControl
     protected override void OnResize(EventArgs e)
     {
         base.OnResize(e);
-        if (this.DesignMode)
+        if (DesignMode)
             UpdateControlHeight();
     }
 
@@ -206,11 +206,11 @@ public partial class IMTextBox : UserControl
     {
         if (textBox1.Multiline == false)
         {
-            int txtHeight = TextRenderer.MeasureText("Text", this.Font).Height + 1;
+            int txtHeight = TextRenderer.MeasureText("Text", Font).Height + 1;
             textBox1.Multiline = true;
             textBox1.MinimumSize = new Size(0, txtHeight);
             textBox1.Multiline = false;
-            this.Height = textBox1.Height + this.Padding.Top + this.Padding.Bottom;
+            Height = textBox1.Height + Padding.Top + Padding.Bottom;
         }
     }
 
@@ -256,51 +256,51 @@ public partial class IMTextBox : UserControl
 
     private void textBox1_Click(object sender, EventArgs e)
     {
-        this.OnClick(e);
+        OnClick(e);
     }
 
     private void textBox1_MouseEnter(object sender, EventArgs e)
     {
-        this.OnMouseEnter(e);
+        OnMouseEnter(e);
     }
 
     private void textBox1_MouseLeave(object sender, EventArgs e)
     {
-        this.OnMouseLeave(e);
+        OnMouseLeave(e);
     }
 
     private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
     {
-        this.OnKeyPress(e);
+        OnKeyPress(e);
     }
 
     private void textBox1_Enter(object sender, EventArgs e)
     {
         isFocused = true;
-        this.Invalidate();
+        Invalidate();
     }
 
     private void textBox1_Leave(object sender, EventArgs e)
     {
         isFocused = false;
-        this.Invalidate();
+        Invalidate();
     }
 
     private void textBox1_KeyDown(object sender, KeyEventArgs e)
     {
         if (e.Control && (e.KeyCode == Keys.A))
         {
-            this.textBox1.SelectAll();
+            textBox1.SelectAll();
             e.SuppressKeyPress = true;
         }
         if (e.Control && (e.KeyCode == Keys.C))
         {
-            this.textBox1.Copy();
+            textBox1.Copy();
             e.SuppressKeyPress = true;
         }
         if (e.Control && (e.KeyCode == Keys.X))
         {
-            this.textBox1.Cut();
+            textBox1.Cut();
             e.SuppressKeyPress = true;
         }
     }

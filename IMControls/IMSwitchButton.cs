@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
-namespace CustomControls.IMControls;
+namespace IMControls.CustomControls;
 
 public class IMSwitchButton: CheckBox
 {
@@ -14,9 +14,9 @@ public class IMSwitchButton: CheckBox
     [Category("Advanced Properties")]
     public IMSwitchButton()
     {
-        this.MinimumSize = new Size(30, 20);
-        this.AutoSize = false;
-        this.Size = new Size(70, 20);
+        MinimumSize = new Size(30, 20);
+        AutoSize = false;
+        Size = new Size(70, 20);
     }
 
     [Category("Advanced Properties")]
@@ -26,7 +26,7 @@ public class IMSwitchButton: CheckBox
         set 
         { 
             onBackColor = value;
-            this.Invalidate();
+            Invalidate();
         } 
     }
 
@@ -37,7 +37,7 @@ public class IMSwitchButton: CheckBox
         set 
         { 
             onToggleColor = value;
-            this.Invalidate();
+            Invalidate();
         } 
     }
 
@@ -48,7 +48,7 @@ public class IMSwitchButton: CheckBox
         set 
         { 
             offBackColor = value;
-            this.Invalidate();
+            Invalidate();
         } 
     }
 
@@ -59,7 +59,7 @@ public class IMSwitchButton: CheckBox
         set 
         { 
             offToggleColor = value;
-            this.Invalidate();
+            Invalidate();
         } 
     }
 
@@ -71,7 +71,7 @@ public class IMSwitchButton: CheckBox
         set
         {
             solidStyle = value;
-            this.Invalidate();
+            Invalidate();
         }
     }
 
@@ -89,9 +89,9 @@ public class IMSwitchButton: CheckBox
 
     private GraphicsPath GetFigurePath()
     {
-        int arcSize = this.Height - 1;
+        int arcSize = Height - 1;
         Rectangle leftArc = new Rectangle(0, 0, arcSize, arcSize);
-        Rectangle rightArc = new Rectangle(this.Width - arcSize - 2, 0, arcSize, arcSize);
+        Rectangle rightArc = new Rectangle(Width - arcSize - 2, 0, arcSize, arcSize);
 
         GraphicsPath path = new GraphicsPath();
         path.StartFigure();
@@ -104,11 +104,11 @@ public class IMSwitchButton: CheckBox
 
     protected override void OnPaint(PaintEventArgs pevent)
     {
-        int toggleSize = this.Height - 5;
+        int toggleSize = Height - 5;
         pevent.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-        pevent.Graphics.Clear(this.Parent.BackColor);
+        pevent.Graphics.Clear(Parent.BackColor);
 
-        if (this.Checked)
+        if (Checked)
         {
             if (solidStyle)
                 pevent.Graphics.FillPath(new SolidBrush(onBackColor), GetFigurePath());
@@ -116,7 +116,7 @@ public class IMSwitchButton: CheckBox
                 pevent.Graphics.DrawPath(new Pen(onBackColor, 2), GetFigurePath());
 
             pevent.Graphics.FillEllipse(new SolidBrush(onToggleColor),
-              new Rectangle(this.Width - this.Height + 1, 2, toggleSize, toggleSize));
+              new Rectangle(Width - Height + 1, 2, toggleSize, toggleSize));
         } else 
         {
             if (solidStyle)

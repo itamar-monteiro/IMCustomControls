@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.InteropServices;
 
-namespace CustomControls.IMControls;
+namespace IMControls.CustomControls;
 
 public class IMEllipseControl : Component
 {

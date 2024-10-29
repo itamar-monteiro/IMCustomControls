@@ -1,6 +1,6 @@
 ﻿using System.Drawing.Drawing2D;
 
-namespace CustomControls.IMControls;
+namespace IMControls.CustomControls;
 
 public class IMRadioButton: RadioButton
 {
@@ -9,8 +9,8 @@ public class IMRadioButton: RadioButton
 
     public IMRadioButton()
     {
-        this.MinimumSize = new Size(0, 21);
-        this.Padding = new Padding(10, 0, 0, 0);
+        MinimumSize = new Size(0, 21);
+        Padding = new Padding(10, 0, 0, 0);
     }
 
     #region "Properties"
@@ -20,7 +20,7 @@ public class IMRadioButton: RadioButton
         set
         {
             checkedColor = value;
-            this.Invalidate();
+            Invalidate();
         }
     }
 
@@ -30,7 +30,7 @@ public class IMRadioButton: RadioButton
         set
         {
             unCheckedColor = value;
-            this.Invalidate();
+            Invalidate();
         }
     }
     #endregion
@@ -46,7 +46,7 @@ public class IMRadioButton: RadioButton
         RectangleF rectRbBorder = new RectangleF()
         {
             X = 0.5F,
-            Y = (this.Height - rbBorderSize) / 2,
+            Y = (Height - rbBorderSize) / 2,
             Width = rbBorderSize,
             Height = rbBorderSize
         };
@@ -54,18 +54,18 @@ public class IMRadioButton: RadioButton
         RectangleF rectRbCheck = new RectangleF()
         {
             X = rectRbBorder.X + ((rectRbBorder.Width - rbCheckSize) / 2),
-            Y = (this.Height - rbCheckSize) / 2,
+            Y = (Height - rbCheckSize) / 2,
             Width = rbCheckSize,
             Height = rbCheckSize
         };
 
         using (Pen penBorder = new Pen(checkedColor, 1.6F))
         using (SolidBrush brushRbCheck = new SolidBrush(checkedColor))
-        using (SolidBrush brushText = new SolidBrush(this.ForeColor))
+        using (SolidBrush brushText = new SolidBrush(ForeColor))
         {
-            graphics.Clear(this.BackColor);
+            graphics.Clear(BackColor);
 
-            if (this.Checked)
+            if (Checked)
             {
                 graphics.DrawEllipse(penBorder, rectRbBorder);   // Circle border
                 graphics.FillEllipse(brushRbCheck, rectRbCheck); // Circle Radio Check
@@ -75,11 +75,11 @@ public class IMRadioButton: RadioButton
                 graphics.DrawEllipse(penBorder, rectRbBorder); // Circle border
             }
             graphics.DrawString
-                (this.Text, 
-                this.Font, 
+                (Text, 
+                Font, 
                 brushText,
                 rbBorderSize + 8, 
-                (this.Height - TextRenderer.MeasureText(this.Text, this.Font).Height) / 2);
+                (Height - TextRenderer.MeasureText(Text, Font).Height) / 2);
         }
     }
     #endregion

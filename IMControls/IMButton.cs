@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
-namespace CustomControls.IMControls;
+namespace IMControls.CustomControls;
 
 public class IMButton: Button
 {
@@ -11,13 +11,13 @@ public class IMButton: Button
 
     public IMButton()
     {
-        this.FlatStyle = FlatStyle.Flat;
-        this.FlatAppearance.BorderSize = 0;
-        this.Size = new Size(150, 40);
-        this.BackColor = Color.FromArgb(51, 67, 190);
-        this.ForeColor = Color.WhiteSmoke;
-        this.Resize += new EventHandler(Button_Resize);
-        this.Font = new Font("Century Gothic", 10f, FontStyle.Bold);
+        FlatStyle = FlatStyle.Flat;
+        FlatAppearance.BorderSize = 0;
+        Size = new Size(150, 40);
+        BackColor = Color.FromArgb(51, 67, 190);
+        ForeColor = Color.WhiteSmoke;
+        Resize += new EventHandler(Button_Resize);
+        Font = new Font("Century Gothic", 10f, FontStyle.Bold);
     }
 
     [Category("Advanced Properties")]
@@ -27,7 +27,7 @@ public class IMButton: Button
         set
         {
             borderSize = value;
-            this.Invalidate();
+            Invalidate();
         }
     }
 
@@ -38,7 +38,7 @@ public class IMButton: Button
         set
         {
             borderRadius = value;
-            this.Invalidate();
+            Invalidate();
         }
     }
 
@@ -49,28 +49,28 @@ public class IMButton: Button
         set
         {
             borderColor = value;
-            this.Invalidate();
+            Invalidate();
         }
     }
 
     [Category("Advanced Properties")]
     public Color BackgroundColor
     {
-        get { return this.BackColor; }
-        set { this.BackColor = value; }
+        get { return BackColor; }
+        set { BackColor = value; }
     }
 
     [Category("Advanced Properties")]
     public Color TextColor
     {
-        get { return this.ForeColor; }
-        set { this.ForeColor = value; }
+        get { return ForeColor; }
+        set { ForeColor = value; }
     }
 
     private void Button_Resize(object sender, EventArgs e)
     {
-        if (borderRadius > this.Height)
-            borderRadius = this.Height;
+        if (borderRadius > Height)
+            borderRadius = Height;
     }
 
     private GraphicsPath GetFigurePath(RectangleF rect, float radius)
@@ -126,11 +126,11 @@ public class IMButton: Button
     protected override void OnHandleCreated(EventArgs e)
     {
         base.OnHandleCreated(e);
-        this.Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
+        Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
     }
 
     private void Container_BackColorChanged(object sender, EventArgs e)
     {
-        this.Invalidate();
+        Invalidate();
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CustomControls.Properties {
+namespace IMControls.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace CustomControls.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CustomControls.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("IMControls.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,9 +63,9 @@ namespace CustomControls.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap calendarDark {
+        internal static System.Drawing.Bitmap DarkCalendar {
             get {
-                object obj = ResourceManager.GetObject("calendarDark", resourceCulture);
+                object obj = ResourceManager.GetObject("DarkCalendar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace CustomControls.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap calendarWhite {
+        internal static System.Drawing.Bitmap WhiteCalendar {
             get {
-                object obj = ResourceManager.GetObject("calendarWhite", resourceCulture);
+                object obj = ResourceManager.GetObject("WhiteCalendar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

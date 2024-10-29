@@ -2,7 +2,7 @@
 using System.Drawing.Design;
 using System.Drawing.Drawing2D;
 
-namespace CustomControls.IMControls;
+namespace IMControls.CustomControls;
 
 [DefaultEvent("OnSelectedIndexChanged")]
 public class IMCustomComboBox : UserControl
@@ -24,10 +24,10 @@ public class IMCustomComboBox : UserControl
         cmbList = new ComboBox();
         lblText = new Label();
         btnIcon = new Button();
-        this.SuspendLayout();
+        SuspendLayout();
 
         cmbList.BackColor = listBackColor;
-        cmbList.Font = new Font(this.Font.Name, 10F);
+        cmbList.Font = new Font(Font.Name, 10F);
         cmbList.ForeColor = listTextColor;
         cmbList.SelectedIndexChanged += new EventHandler(ComboBox_SelectedIndexChanged);
         cmbList.TextChanged += new EventHandler(ComboBox_TextChanged);
@@ -46,21 +46,21 @@ public class IMCustomComboBox : UserControl
         lblText.BackColor = backColor;
         lblText.TextAlign = ContentAlignment.MiddleLeft;
         lblText.Padding = new Padding(8, 0, 0, 0);
-        lblText.Font = new Font(this.Font.Name, 10F);
+        lblText.Font = new Font(Font.Name, 10F);
         lblText.Click += new EventHandler(Surface_Click);
         lblText.MouseEnter += new EventHandler(Surface_MouseEnter);
         lblText.MouseLeave += new EventHandler(Surface_MouseLeave);
 
-        this.Controls.Add(lblText); // 2
-        this.Controls.Add(btnIcon); // 1
-        this.Controls.Add(cmbList); // 0
-        this.MinimumSize = new Size(200, 30);
-        this.Size = new Size(200, 30);
-        this.ForeColor = Color.DimGray;
-        this.Padding = new Padding(borderSize);
-        this.Font = new Font(this.Font.Name, 10F);
+        Controls.Add(lblText); // 2
+        Controls.Add(btnIcon); // 1
+        Controls.Add(cmbList); // 0
+        MinimumSize = new Size(200, 30);
+        Size = new Size(200, 30);
+        ForeColor = Color.DimGray;
+        Padding = new Padding(borderSize);
+        Font = new Font(Font.Name, 10F);
         base.BackColor = borderColor;
-        this.ResumeLayout();
+        ResumeLayout();
         AdjustComboBoxDimensions();
     }
 
@@ -128,7 +128,7 @@ public class IMCustomComboBox : UserControl
         set
         {
             borderSize = value;
-            this.Padding = new Padding(borderSize);
+            Padding = new Padding(borderSize);
             AdjustComboBoxDimensions();
         }
     }
@@ -271,7 +271,7 @@ public class IMCustomComboBox : UserControl
         cmbList.Width = lblText.Width;
         cmbList.Location = new Point()
         {
-            X = this.Width - this.Padding.Right - cmbList.Width,
+            X = Width - Padding.Right - cmbList.Width,
             Y = lblText.Bottom - cmbList.Height
         };
     }
@@ -290,7 +290,7 @@ public class IMCustomComboBox : UserControl
     }
     private void Surface_Click(object sender, EventArgs e)
     {
-        this.OnClick(e);
+        OnClick(e);
         cmbList.Select();
         if (cmbList.DropDownStyle == ComboBoxStyle.DropDownList)
             cmbList.DroppedDown = true;
@@ -319,12 +319,12 @@ public class IMCustomComboBox : UserControl
 
     private void Surface_MouseLeave(object sender, EventArgs e)
     {
-        this.OnMouseLeave(e);
+        OnMouseLeave(e);
     }
 
     private void Surface_MouseEnter(object sender, EventArgs e)
     {
-        this.OnMouseEnter(e);
+        OnMouseEnter(e);
     }
     protected override void OnResize(EventArgs e)
     {
