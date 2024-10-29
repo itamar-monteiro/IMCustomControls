@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -13,6 +13,8 @@
     <Company>IM Controls</Company>
     <Product>CustomControls</Product>
     <Description>Elegant Custom Controls for Windows Forms C#</Description>
+    <Authors>Itamar Monteiro</Authors>
+    <Copyright>2024</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
